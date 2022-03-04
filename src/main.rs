@@ -11,13 +11,11 @@ fn main() {
 
         let mut input_text: String = read!("{}\n");
         
-        if input_text.ends_with('\r') 
-        {
+        if input_text.ends_with('\r') {
             input_text.pop();
         }
 
-        if input_text == "break"
-        {
+        if input_text == "break" {
             println!("Stoping...");
             break;
         }

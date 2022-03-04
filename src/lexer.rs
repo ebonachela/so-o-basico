@@ -1,6 +1,5 @@
 #[derive(Debug)]
-pub enum Token
-{
+pub enum Token {
     Integer(i32),
     Plus,
     Minus,
@@ -14,17 +13,14 @@ pub fn create_token(text: String) -> Vec<Token> {
     let mut build_integer: String = String::new();
     let mut should_build_integer: bool = false;
 
-    for c in text.chars() 
-    {
-        if c.is_numeric()
-        {
+    for c in text.chars() {
+        if c.is_numeric() {
             should_build_integer = true;
             build_integer.push(c);
             continue;
         }
 
-        if !c.is_numeric() && should_build_integer
-        {
+        if !c.is_numeric() && should_build_integer {
             should_build_integer = false;
             tokens.push(Token::Integer(build_integer.parse::<i32>().unwrap()));
             build_integer = String::new();
@@ -40,8 +36,7 @@ pub fn create_token(text: String) -> Vec<Token> {
         }
     }
 
-    if should_build_integer
-    {
+    if should_build_integer {
         tokens.push(Token::Integer(build_integer.parse::<i32>().unwrap()));
     }
 
