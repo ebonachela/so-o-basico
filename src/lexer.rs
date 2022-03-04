@@ -1,11 +1,4 @@
-#[derive(Debug)]
-pub enum Token {
-    Integer(i32),
-    Plus,
-    Minus,
-    Multiplication,
-    Division
-}
+use crate::tokens::Token;
 
 pub fn create_token(text: String) -> Vec<Token> {
     let mut tokens: Vec<Token> = Vec::new();

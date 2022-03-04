@@ -2,6 +2,7 @@ use text_io::read;
 use std::io;
 use std::io::Write;
 
+mod tokens;
 mod lexer;
 
 fn main() {
