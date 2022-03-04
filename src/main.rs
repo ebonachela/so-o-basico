@@ -6,7 +6,7 @@ mod lexer;
 
 fn main() {
     loop {
-        print!("basic > ");
+        print!("only the basic > ");
         io::stdout().flush().unwrap();
 
         let mut input_text: String = read!("{}\n");
