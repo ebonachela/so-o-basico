@@ -1,6 +1,6 @@
 # só o basico
 
-Aplicação com objetivo de desenvolver um compilador em Rust para uma linguagem de programação criada se chamada "só o basico". Onde a partir de um arquivo de entrada será convertido para o código assembly e, posteriormente, um executável será gerado.
+Aplicação com objetivo de desenvolver um compilador em Rust para uma linguagem de programação criada por mim se chamada "só o basico". Onde a partir de um arquivo de entrada será convertido para o código assembly e, posteriormente, um executável será gerado.
 
 Teremos três principais módulos:
 - Lexer: transforma o texto do arquivo de entrada em tokens
