@@ -1,21 +1,6 @@
 use crate::tokens::Token;
+use crate::nodes::Node;
 use std::collections::VecDeque;
-
-#[derive(Clone, Debug)]
-pub enum Node {
-    Number(Token),
-    Operation(Token),
-    BinaryOperation {
-        left: Box<Node>,
-        operation: Box<Node>,
-        right: Box<Node>
-    },
-    UnaryOperation {
-        operation: Box<Node>,
-        right: Box<Node>
-    },
-    NoneType
-}
 
 pub fn parse(mut tokens: VecDeque<Token>) -> Vec<Node> {
     let mut result: Vec<Node> = Vec::new();
@@ -36,8 +21,6 @@ fn factor(tokens: &mut VecDeque<Token>) -> Node {
     }
 
     let current_token = *tokens.front().unwrap();
-
-    println!("{:?}", current_token);
 
     match current_token {
         Token::Integer(_) => {

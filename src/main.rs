@@ -6,6 +6,7 @@ use std::collections::VecDeque;
 mod tokens;
 mod lexer;
 mod parser;
+mod nodes;
 
 fn main() {
     loop {
@@ -27,7 +28,7 @@ fn main() {
 
         println!("Tokens: {:?}", tokens);
 
-        let parser_tokens: Vec<parser::Node> = parser::parse(tokens);
+        let parser_tokens: Vec<nodes::Node> = parser::parse(tokens);
 
         println!("Parser: {:?}", parser_tokens);
     }
