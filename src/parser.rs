@@ -37,6 +37,8 @@ fn factor(tokens: &mut VecDeque<Token>) -> Node {
 
     let current_token = *tokens.front().unwrap();
 
+    println!("{:?}", current_token);
+
     match current_token {
         Token::Integer(_) => {
             tokens.pop_front();
@@ -53,11 +55,12 @@ fn factor(tokens: &mut VecDeque<Token>) -> Node {
 
             return result_node
         },
-        Token::LeftParenthesis | Token::RigthParenthesis => {
+        Token::LeftParenthesis => {
             tokens.pop_front();
             let result_node = expression(tokens);
 
             if *tokens.front().unwrap() == Token::RigthParenthesis {
+                tokens.pop_front();
                 return result_node;
             } else {
                 return Node::NoneType;
