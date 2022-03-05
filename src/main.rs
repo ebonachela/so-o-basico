@@ -21,7 +21,7 @@ fn main() {
         }
 
         match input_text.as_str() {
-            "break" => {
+            "break" | "br" => {
                 println!("Stoping...");
                 break;
             },

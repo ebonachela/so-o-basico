@@ -64,10 +64,6 @@ fn expression(tokens: &mut VecDeque<Token>) -> Node {
 fn binary_operation(tokens: &mut VecDeque<Token>, f: fn(&mut VecDeque<Token>) -> Node, acc_list: &[Token]) -> Node {    
     let mut left = f(tokens);
 
-    if tokens.is_empty() {
-        return left;
-    }
-
     while !tokens.is_empty() && acc_list.contains(tokens.front().unwrap()) {
         let operation = *tokens.front().unwrap();
         tokens.pop_front();
