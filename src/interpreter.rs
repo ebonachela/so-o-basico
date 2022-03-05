@@ -17,7 +17,7 @@ fn visit_node(node: Node) -> Node {
             result = visit_binop_node(node);
         },
         Node::UnaryOperation {operation: _, right: _} => {
-            ()
+            result = visit_unop_node(node);
         },
         Node::Number(_) => result = node,
         _ => ()
@@ -44,6 +44,27 @@ fn visit_binop_node(node: Node) -> Node {
                         Token::Division => result = left_node / right_node,
                         _ => ()
                     }
+                },
+                _ => ()
+            }
+        },
+        _ => ()
+    }
+
+    result
+}
+
+fn visit_unop_node(node: Node) -> Node {
+    let mut result: Node = Node::NoneType;
+
+    match node {
+        Node::UnaryOperation{operation, right} => {
+            let operation_node = macros::get_variant!(*operation, Node::Operation).unwrap();
+            let right_node = visit_node(*right);
+
+            match operation_node {
+                Token::Minus => {
+                    result = right_node * Node::Number(Token::Integer(-1));
                 },
                 _ => ()
             }
