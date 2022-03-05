@@ -12,7 +12,7 @@ pub enum Node {
     },
     UnaryOperation {
         operation: Box<Node>,
-        rigth: Box<Node>
+        right: Box<Node>
     },
     NoneType
 }
@@ -35,11 +35,36 @@ fn factor(tokens: &mut VecDeque<Token>) -> Node {
         return Node::NoneType;
     }
 
-    let result = *tokens.front().unwrap();
+    let current_token = *tokens.front().unwrap();
 
-    tokens.pop_front();
+    match current_token {
+        Token::Integer(_) => {
+            tokens.pop_front();
+            return Node::Number(current_token)
+        },
+        Token::Plus | Token::Minus => {
+            tokens.pop_front();
+            let mut result_node = factor(tokens);
 
-    Node::Number(result)
+            result_node = Node::UnaryOperation {
+                operation: Box::new(Node::Operation(current_token)),
+                right: Box::new(result_node)
+            };
+
+            return result_node
+        },
+        Token::LeftParenthesis | Token::RigthParenthesis => {
+            tokens.pop_front();
+            let result_node = expression(tokens);
+
+            if *tokens.front().unwrap() == Token::RigthParenthesis {
+                return result_node;
+            } else {
+                return Node::NoneType;
+            }
+        }
+        _ => return Node::NoneType
+    }
 }
 
 fn term(tokens: &mut VecDeque<Token>) -> Node {
@@ -66,10 +91,6 @@ fn binary_operation(tokens: &mut VecDeque<Token>, f: fn(&mut VecDeque<Token>) ->
     }
 
     while !tokens.is_empty() && acc_list.contains(tokens.front().unwrap()) {
-        if tokens.is_empty() {
-            return Node::NoneType;
-        }
-
         let operation = *tokens.front().unwrap();
         tokens.pop_front();
         let right = f(tokens);

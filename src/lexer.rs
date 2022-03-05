@@ -24,6 +24,8 @@ pub fn create_token(text: String) -> Vec<Token> {
             '-' => tokens.push(Token::Minus),
             '*' => tokens.push(Token::Multiplication),
             '/' => tokens.push(Token::Division),
+            '(' => tokens.push(Token::LeftParenthesis),
+            ')' => tokens.push(Token::RigthParenthesis),
             ' ' => should_build_integer = false,
             unknown => println!("Unknown token ({})", unknown)
         }
