@@ -4,5 +4,7 @@ pub enum Token {
     Plus,
     Minus,
     Multiplication,
-    Division
+    Division,
+    LeftParenthesis,
+    RigthParenthesis
 }
