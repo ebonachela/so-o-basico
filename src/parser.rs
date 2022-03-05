@@ -2,17 +2,9 @@ use crate::tokens::Token;
 use crate::nodes::Node;
 use std::collections::VecDeque;
 
-pub fn parse(mut tokens: VecDeque<Token>) -> Vec<Node> {
-    let mut result: Vec<Node> = Vec::new();
+pub fn parse(mut tokens: VecDeque<Token>) -> Node {
 
-    let node_result: Node = expression(&mut tokens);
-
-    match node_result {
-        Node::NoneType => (),
-        _ => result.push(node_result)
-    }
-
-    result
+    expression(&mut tokens)
 }
 
 fn factor(tokens: &mut VecDeque<Token>) -> Node {
