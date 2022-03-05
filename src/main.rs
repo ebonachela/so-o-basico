@@ -25,8 +25,10 @@ fn main() {
 
         let tokens: VecDeque<tokens::Token> = VecDeque::from(lexer::create_token(input_text));
 
+        println!("Tokens: {:?}", tokens);
+
         let parser_tokens: Vec<parser::Node> = parser::parse(tokens);
 
-        println!("{:?}", parser_tokens);
+        println!("Parser: {:?}", parser_tokens);
     }
 }
