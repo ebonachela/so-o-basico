@@ -1,11 +1,12 @@
 // Basic interpreter
 use crate::nodes::Node;
 use crate::tokens::Token;
+use crate::macros;
 
 pub fn interpret(init_node: Node) {
     let result: Node = visit_node(init_node);
 
-    println!("Interpreter: {:?}", result);
+    println!("{:?}", macros::get_variant!(macros::get_variant!(result, Node::Number).unwrap(), Token::Integer).unwrap());
 }
 
 fn visit_node(node: Node) -> Node {

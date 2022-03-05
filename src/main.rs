@@ -8,6 +8,7 @@ mod lexer;
 mod parser;
 mod nodes;
 mod interpreter;
+mod macros;
 
 fn main() {
     loop {
