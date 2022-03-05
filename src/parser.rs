@@ -1,17 +1,18 @@
 use crate::tokens::Token;
 use std::collections::VecDeque;
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Clone, Debug)]
 pub enum Node {
     Number(Token),
+    Operation(Token),
     BinaryOperation {
-        left: Token,
-        operation: Token,
-        right: Token
+        left: Box<Node>,
+        operation: Box<Node>,
+        right: Box<Node>
     },
     UnaryOperation {
-        operation: Token,
-        rigth: Token
+        operation: Box<Node>,
+        rigth: Box<Node>
     },
     NoneType
 }
@@ -72,24 +73,11 @@ fn binary_operation(tokens: &mut VecDeque<Token>, f: fn(&mut VecDeque<Token>) ->
         let operation = *tokens.front().unwrap();
         tokens.pop_front();
         let right = f(tokens);
-
-        let mut left_value: Token = Token::Integer(1);
-        let mut right_value: Token = Token::Integer(1);
-
-        match left {
-            Node::Number(i) => left_value = i,
-            _ => ()
-        }
-
-        match right {
-            Node::Number(i) => right_value = i,
-            _ => ()
-        }
-        
+       
         left = Node::BinaryOperation {
-            left: left_value, 
-            operation, 
-            right: right_value
+            left: Box::new(left), 
+            operation: Box::new(Node::Operation(operation)), 
+            right: Box::new(right)
         }
     }
 
