@@ -18,6 +18,7 @@ fn visit_node(node: Node) -> Node {
         Node::UnaryOperation {operation: _, right: _} => {
             ()
         },
+        Node::Number(_) => result = node,
         _ => ()
     }
 
@@ -37,6 +38,9 @@ fn visit_binop_node(node: Node) -> Node {
                 Node::Operation(operation_value) => {
                     match operation_value {
                         Token::Plus => result = left_node + right_node,
+                        Token::Minus => result = left_node - right_node,
+                        Token::Multiplication => result = left_node * right_node,
+                        Token::Division => result = left_node / right_node,
                         _ => ()
                     }
                 },
