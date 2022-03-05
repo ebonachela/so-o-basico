@@ -1,9 +1,11 @@
 use text_io::read;
 use std::io;
 use std::io::Write;
+use std::collections::VecDeque;
 
 mod tokens;
 mod lexer;
+mod parser;
 
 fn main() {
     loop {
@@ -21,8 +23,10 @@ fn main() {
             break;
         }
 
-        let tokens = lexer::create_token(input_text);
+        let tokens: VecDeque<tokens::Token> = VecDeque::from(lexer::create_token(input_text));
 
-        println!("{:?}", tokens);
+        let parser_tokens: Vec<parser::Node> = parser::parse(tokens);
+
+        println!("{:?}", parser_tokens);
     }
 }
