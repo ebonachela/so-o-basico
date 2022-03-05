@@ -20,18 +20,25 @@ fn main() {
             input_text.pop();
         }
 
-        if input_text == "break" {
-            println!("Stoping...");
-            break;
+        match input_text.as_str() {
+            "break" => {
+                println!("Stoping...");
+                break;
+            },
+            "clear" | "cls" => {
+                print!("\x1B[2J\x1B[1;1H");
+                continue;
+            }
+            _ => ()
         }
 
         let tokens: VecDeque<tokens::Token> = VecDeque::from(lexer::create_token(input_text));
 
-        println!("Tokens: {:?}", tokens);
+        //println!("Tokens: {:?}", tokens);
 
         let parser_token: nodes::Node = parser::parse(tokens);
 
-        println!("Parser: {:?}", parser_token);
+        //println!("Parser: {:?}", parser_token);
 
         interpreter::interpret(parser_token);
     }
