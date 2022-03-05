@@ -32,19 +32,14 @@ fn visit_binop_node(node: Node) -> Node {
     match node {
         Node::BinaryOperation {left, operation, right} => {
             let left_node: Node = visit_node(*left);
-            let operation_node: Node = *operation;
+            let operation_node: Token = macros::get_variant!(*operation, Node::Operation).unwrap();
             let right_node: Node = visit_node(*right);
 
             match operation_node {
-                Node::Operation(operation_value) => {
-                    match operation_value {
-                        Token::Plus => result = left_node + right_node,
-                        Token::Minus => result = left_node - right_node,
-                        Token::Multiplication => result = left_node * right_node,
-                        Token::Division => result = left_node / right_node,
-                        _ => ()
-                    }
-                },
+                Token::Plus => result = left_node + right_node,
+                Token::Minus => result = left_node - right_node,
+                Token::Multiplication => result = left_node * right_node,
+                Token::Division => result = left_node / right_node,
                 _ => ()
             }
         },
@@ -59,8 +54,8 @@ fn visit_unop_node(node: Node) -> Node {
 
     match node {
         Node::UnaryOperation{operation, right} => {
-            let operation_node = macros::get_variant!(*operation, Node::Operation).unwrap();
-            let right_node = visit_node(*right);
+            let operation_node: Token = macros::get_variant!(*operation, Node::Operation).unwrap();
+            let right_node: Node = visit_node(*right);
 
             match operation_node {
                 Token::Minus => {
